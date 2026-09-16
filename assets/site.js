@@ -14,6 +14,45 @@
     });
   }
 
+  /* scene d'accueil : le titre se decoupe et les couches montent, puis
+     chaque couche suit la souris et le defilement a sa propre vitesse
+     (data-profondeur). Rien ne bouge si l'utilisateur l'a demande. */
+  var scene = document.querySelector('[data-scene]');
+  if (scene) {
+    var calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { scene.classList.add('pret'); }); });
+
+    if (!calme) {
+      var couches = [].slice.call(scene.querySelectorAll('.couche'));
+      var photo = scene.querySelector('.scene-photo');
+      var sx = 0, sy = 0, prevu = false;
+      setTimeout(function () { scene.classList.add('bouge'); }, 2200);
+
+      var peindre = function () {
+        prevu = false;
+        var defil = Math.min(window.scrollY, scene.offsetHeight);
+        couches.forEach(function (c) {
+          var p = parseFloat(c.getAttribute('data-profondeur')) || 0;
+          c.style.setProperty('--dx', (-sx * p * 26).toFixed(1) + 'px');
+          c.style.setProperty('--dy', (defil * p * 0.12 + sy * p * 8).toFixed(1) + 'px');
+        });
+        if (photo) photo.style.transform = 'translate3d(' + (-sx * 10).toFixed(1) + 'px,' + (defil * 0.3).toFixed(1) + 'px,0) scale(1.04)';
+      };
+      var demander = function () { if (!prevu) { prevu = true; requestAnimationFrame(peindre); } };
+
+      if (window.matchMedia('(hover: hover)').matches) {
+        scene.addEventListener('pointermove', function (e) {
+          var r = scene.getBoundingClientRect();
+          sx = (e.clientX - r.left) / r.width - 0.5;
+          sy = (e.clientY - r.top) / r.height - 0.5;
+          demander();
+        });
+      }
+      window.addEventListener('scroll', demander, { passive: true });
+      peindre();
+    }
+  }
+
   /* galerie d'une fiche : la vignette choisie passe en grand */
   document.querySelectorAll('[data-galerie]').forEach(function (g) {
     var grande = g.querySelector('.galerie-grande img');

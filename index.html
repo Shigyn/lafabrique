@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=1">
+<link rel="stylesheet" href="assets/style.css?v=3">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://shigyn.github.io/lafabrique/#atelier","name":"La Fabrique du Maquettiste","description":"Fabrication d’objets décoratifs et de gravures personnalisées sur bois et ardoise : lanternes, horloges, décorations, cadeaux personnalisés.","url":"https://shigyn.github.io/lafabrique/","email":"lemaquettiste.boutique@gmail.com","image":"https://shigyn.github.io/lafabrique/photos/creations/lampe-arbre-de-vie-2.webp","areaServed":["Cambrai","Cambrésis","Nord"],"address":{"@type":"PostalAddress","addressRegion":"Nord","addressCountry":"FR"},"sameAs":["https://www.instagram.com/la_fabrique_du_maquettiste/","https://la-fabrique-du-maquettiste.sumupstore.com"]}</script>
 </head>
 <body class="entete-sombre">
@@ -40,37 +40,64 @@
 </header>
 <main id="contenu">
 
-<section class="scene">
-  <div class="enveloppe scene-grille">
-    <div class="scene-texte">
-      <p class="surtitre" data-editable-zone="accueil_surtitre">Bois découpé et gravé au laser · Cambrésis</p>
-      <h1 class="scene-titre" data-editable-zone="accueil_titre">Des objets qui <em>s’allument</em> à la tombée du jour.</h1>
-      <p class="scene-chapo" data-editable-zone="accueil_chapo">Lanternes, horloges et cadeaux personnalisés. Je dessine, je découpe, j’assemble et je peins chaque pièce à la main, couche de bois après couche de bois.</p>
-      <p class="scene-actions">
-        <a class="bouton bouton-lueur" href="creations/">Voir les créations</a>
-        <a class="bouton bouton-contour" href="personnalisation/">Personnaliser un objet</a>
-      </p>
-      <p class="scene-signature" data-editable-zone="accueil_signature">Yoann, maquettiste</p>
-    </div>
-    <div class="triptyque" aria-hidden="true">
-      <figure class="volet volet-1"><img class="" src="photos/creations/lanterne-oiseaux-sur-leurs-branches-2-600.webp" alt="" width="600" height="800" fetchpriority="high" decoding="async"></figure>
-      <figure class="volet volet-2"><img class="" src="photos/creations/lampe-arbre-de-vie-2-600.webp" alt="" width="600" height="800" fetchpriority="high" decoding="async"></figure>
-      <figure class="volet volet-3"><img class="" src="photos/creations/veilleuse-colibri-2-600.webp" alt="" width="600" height="800" fetchpriority="high" decoding="async"></figure>
-    </div>
+<section class="scene" data-scene>
+  <!-- PHOTO D'ILLUSTRATION (Unsplash, o54RjF-C7xo) : a remplacer par une
+       photo de l'atelier de Yoann. -->
+  <picture class="scene-photo" data-profondeur="0.15">
+    <source media="(max-width: 700px)" srcset="photos/atelier-mobile.webp">
+    <source media="(max-width: 1300px)" srcset="photos/atelier-1200.webp">
+    <img src="photos/atelier-2200.webp" alt="" width="2200" height="1514" fetchpriority="high" data-editable-zone="accueil_photo">
+  </picture>
+  <div class="scene-voile"></div>
+  <div class="scene-lueur" aria-hidden="true"></div>
+  <div class="enveloppe scene-contenu">
+    <p class="surtitre scene-apparait" data-editable-zone="accueil_surtitre">Découpe et gravure laser · Cambrésis</p>
+    <h1 class="scene-titre">
+      <span class="scene-ligne"><span>La Fabrique</span></span>
+      <span class="scene-ligne"><em>du Maquettiste</em></span>
+    </h1>
+    <p class="scene-chapo scene-apparait" data-editable-zone="accueil_chapo">Lanternes, horloges et cadeaux personnalisés, découpés, assemblés et peints à la main, <span>couche de bois après couche de bois.</span></p>
+    <p class="scene-actions scene-apparait">
+      <a class="bouton bouton-lueur" href="creations/">Voir les 49 créations</a>
+      <a class="bouton bouton-contour" href="personnalisation/">Personnaliser un objet</a>
+    </p>
+  </div>
+  <!-- Les couches de bois decoupees : le metier de Yoann, en entree de site.
+       Elles montent l'une apres l'autre au chargement, puis bougent a des
+       vitesses differentes avec la souris et le defilement. -->
+  <div class="couches" aria-hidden="true">
+    
+  <svg class="couche couche-1" data-profondeur="0.35" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice"><path d="M0,420 L0,272.0 L0,272.0 L40,272.1 L80,271.3 L120,269.0 L160,265.3 L200,260.6 L240,256.1 L280,252.7 L320,251.3 L360,252.1 L400,254.7 L440,258.4 L480,262.1 L520,264.9 L560,266.3 L600,266.5 L640,266.1 L680,266.1 L720,267.2 L760,269.9 L800,274.1 L840,279.1 L880,283.7 L920,287.1 L960,288.4 L1000,287.5 L1040,284.9 L1080,281.4 L1120,278.2 L1160,276.0 L1200,275.1 L1240,275.3 L1280,275.8 L1320,275.7 L1360,274.2 L1400,271.1 L1440,266.5 L1480,261.3 L1520,256.6 L1560,253.4 L1600,252.2 L1600,420 Z M-51.5,277.8 L-20.0,209.9 L11.5,277.8 Z M-43.9,239.4 L-20.0,170.1 L3.9,239.4 Z M-36.4,201.1 L-20.0,130.2 L-3.6,201.1 Z M-20.8,278.1 L16.7,208.6 L54.2,278.1 Z M-11.8,238.8 L16.7,167.8 L45.2,238.8 Z M-2.8,199.6 L16.7,127.1 L36.2,199.6 Z M53.5,277.9542446009266 h6 v-50.0 h-6 Z M32.8,209.1 a23.7,23.7 0 1,0 47.4,0 a23.7,23.7 0 1,0 -47.4,0 Z M23.8,220.2 a16.9,16.9 0 1,0 33.9,0 a16.9,16.9 0 1,0 -33.9,0 Z M55.4,222.4 a16.9,16.9 0 1,0 33.9,0 a16.9,16.9 0 1,0 -33.9,0 Z M57.0,276.7 L93.5,209.1 L130.0,276.7 Z M65.8,238.5 L93.5,169.4 L121.3,238.5 Z M74.6,200.2 L93.5,129.6 L112.5,200.2 Z M128.5,271.4 L159.2,218.1 L189.9,271.4 Z M135.8,241.2 L159.2,186.8 L182.6,241.2 Z M143.2,211.1 L159.2,155.5 L175.2,211.1 Z M180.9,264.6 L217.4,203.8 L253.9,264.6 Z M189.6,230.2 L217.4,168.1 L245.2,230.2 Z M198.4,195.9 L217.4,132.5 L236.4,195.9 Z M214.2,260.9 L251.8,187.2 L289.4,260.9 Z M223.2,219.3 L251.8,144.0 L280.4,219.3 Z M232.3,177.6 L251.8,100.7 L271.4,177.6 Z M310.5,257.33851164826194 h6 v-55.6 h-6 Z M285.8,180.7 a27.7,27.7 0 1,0 55.5,0 a27.7,27.7 0 1,0 -55.5,0 Z M275.2,193.0 a19.8,19.8 0 1,0 39.6,0 a19.8,19.8 0 1,0 -39.6,0 Z M312.2,195.5 a19.8,19.8 0 1,0 39.6,0 a19.8,19.8 0 1,0 -39.6,0 Z M357.8,258.08763627767394 h6 v-66.5 h-6 Z M334.7,166.4 a26.1,26.1 0 1,0 52.2,0 a26.1,26.1 0 1,0 -52.2,0 Z M324.7,181.2 a18.6,18.6 0 1,0 37.3,0 a18.6,18.6 0 1,0 -37.3,0 Z M359.5,184.2 a18.6,18.6 0 1,0 37.3,0 a18.6,18.6 0 1,0 -37.3,0 Z M370.9,261.8 L412.0,188.6 L453.1,261.8 Z M380.8,220.4 L412.0,145.7 L443.2,220.4 Z M390.6,179.1 L412.0,102.7 L433.3,179.1 Z M471.3,267.6082316769463 h6 v-61.5 h-6 Z M444.8,182.8 a29.5,29.5 0 1,0 58.9,0 a29.5,29.5 0 1,0 -58.9,0 Z M433.6,196.5 a21.0,21.0 0 1,0 42.1,0 a21.0,21.0 0 1,0 -42.1,0 Z M472.9,199.2 a21.0,21.0 0 1,0 42.1,0 a21.0,21.0 0 1,0 -42.1,0 Z M485.0,271.0 L521.7,210.0 L558.4,271.0 Z M493.8,236.5 L521.7,174.2 L549.6,236.5 Z M502.6,202.1 L521.7,138.5 L540.8,202.1 Z M539.2,272.5 L572.4,212.8 L605.6,272.5 Z M547.2,238.7 L572.4,177.7 L597.6,238.7 Z M555.1,205.0 L572.4,142.7 L589.6,205.0 Z M602.9,272.1 L637.2,206.3 L671.5,272.1 Z M611.1,234.9 L637.2,167.6 L663.3,234.9 Z M619.3,197.7 L637.2,129.0 L655.0,197.7 Z M659.7,272.3 L696.4,213.8 L733.1,272.3 Z M668.5,239.2 L696.4,179.4 L724.3,239.2 Z M677.3,206.1 L696.4,145.0 L715.5,206.1 Z M714.8,275.6 L756.0,209.3 L797.3,275.6 Z M724.7,238.1 L756.0,170.3 L787.4,238.1 Z M734.6,200.6 L756.0,131.4 L777.5,200.6 Z M768.0,279.2 L792.1,235.4 L816.2,279.2 Z M773.8,254.4 L792.1,209.6 L810.4,254.4 Z M779.5,229.6 L792.1,183.9 L804.6,229.6 Z M807.4,284.9 L838.5,223.6 L869.6,284.9 Z M814.9,250.2 L838.5,187.6 L862.1,250.2 Z M822.3,215.6 L838.5,151.6 L854.7,215.6 Z M859.5,290.9 L892.4,228.3 L925.2,290.9 Z M867.4,255.5 L892.4,191.5 L917.4,255.5 Z M875.3,220.1 L892.4,154.7 L909.5,220.1 Z M889.1,293.7 L932.6,217.2 L976.1,293.7 Z M899.6,250.5 L932.6,172.4 L965.6,250.5 Z M910.0,207.3 L932.6,127.5 L955.2,207.3 Z M991.3,293.7140252608488 h6 v-42.7 h-6 Z M974.9,234.9 a19.4,19.4 0 1,0 38.7,0 a19.4,19.4 0 1,0 -38.7,0 Z M967.6,244.4 a13.8,13.8 0 1,0 27.7,0 a13.8,13.8 0 1,0 -27.7,0 Z M993.4,246.3 a13.8,13.8 0 1,0 27.7,0 a13.8,13.8 0 1,0 -27.7,0 Z M1013.7,289.8 L1053.2,219.9 L1092.6,289.8 Z M1023.2,250.3 L1053.2,178.9 L1083.2,250.3 Z M1032.7,210.8 L1053.2,137.8 L1073.7,210.8 Z M1079.6,284.0 L1122.8,206.5 L1166.1,284.0 Z M1090.0,240.2 L1122.8,161.0 L1155.7,240.2 Z M1100.4,196.4 L1122.8,115.6 L1145.3,196.4 Z M1154.6,281.2 L1191.0,209.8 L1227.5,281.2 Z M1163.3,240.9 L1191.0,168.0 L1218.8,240.9 Z M1172.1,200.5 L1191.0,126.1 L1210.0,200.5 Z M1256.0,281.5383375147424 h6 v-54.6 h-6 Z M1232.8,206.3 a26.3,26.3 0 1,0 52.5,0 a26.3,26.3 0 1,0 -52.5,0 Z M1222.7,218.5 a18.8,18.8 0 1,0 37.5,0 a18.8,18.8 0 1,0 -37.5,0 Z M1257.8,220.9 a18.8,18.8 0 1,0 37.5,0 a18.8,18.8 0 1,0 -37.5,0 Z M1284.9,281.8 L1315.7,220.2 L1346.6,281.8 Z M1292.3,247.0 L1315.7,184.1 L1339.2,247.0 Z M1299.7,212.2 L1315.7,148.0 L1331.8,212.2 Z M1317.2,280.7 L1351.5,208.1 L1385.8,280.7 Z M1325.5,239.6 L1351.5,165.5 L1377.6,239.6 Z M1333.7,198.6 L1351.5,122.8 L1369.3,198.6 Z M1414.5,275.227415707916 h6 v-41.5 h-6 Z M1397.1,218.0 a20.4,20.4 0 1,0 40.9,0 a20.4,20.4 0 1,0 -40.9,0 Z M1389.3,227.2 a14.6,14.6 0 1,0 29.2,0 a14.6,14.6 0 1,0 -29.2,0 Z M1416.6,229.1 a14.6,14.6 0 1,0 29.2,0 a14.6,14.6 0 1,0 -29.2,0 Z M1458.9,269.6967042498518 h6 v-76.3 h-6 Z M1426.0,164.6 a35.9,35.9 0 1,0 71.7,0 a35.9,35.9 0 1,0 -71.7,0 Z M1412.4,181.6 a25.6,25.6 0 1,0 51.2,0 a25.6,25.6 0 1,0 -51.2,0 Z M1460.2,185.0 a25.6,25.6 0 1,0 51.2,0 a25.6,25.6 0 1,0 -51.2,0 Z M1469.2,265.3 L1496.1,218.1 L1523.0,265.3 Z M1475.7,238.6 L1496.1,190.4 L1516.5,238.6 Z M1482.1,212.0 L1496.1,162.7 L1510.1,212.0 Z M1556.9,259.38975124741853 h6 v-65.3 h-6 Z M1526.4,169.4 a33.5,33.5 0 1,0 66.9,0 a33.5,33.5 0 1,0 -66.9,0 Z M1513.7,183.9 a23.9,23.9 0 1,0 47.8,0 a23.9,23.9 0 1,0 -47.8,0 Z M1558.3,186.8 a23.9,23.9 0 1,0 47.8,0 a23.9,23.9 0 1,0 -47.8,0 Z M1574.9,258.2 L1600.8,212.1 L1626.8,258.2 Z M1581.1,232.2 L1600.8,185.1 L1620.5,232.2 Z M1587.3,206.1 L1600.8,158.0 L1614.3,206.1 Z"/></svg>
+  <svg class="couche couche-2" data-profondeur="0.7" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice"><path d="M0,420 L0,316.0 L0,316.0 L40,319.1 L80,321.7 L120,323.1 L160,323.3 L200,322.7 L240,322.1 L280,322.5 L320,324.4 L360,328.1 L400,333.1 L440,338.5 L480,343.1 L520,346.0 L560,346.9 L600,345.7 L640,343.3 L680,340.6 L720,338.6 L760,337.7 L800,338.0 L840,339.0 L880,339.6 L920,339.1 L960,336.8 L1000,332.8 L1040,327.5 L1080,322.1 L1120,317.6 L1160,314.8 L1200,314.1 L1240,315.3 L1280,317.5 L1320,319.8 L1360,321.2 L1400,321.5 L1440,320.7 L1480,319.4 L1520,318.8 L1560,319.5 L1600,322.1 L1600,420 Z M-48.0,320.6 L-20.0,269.6 L8.0,320.6 Z M-41.3,291.7 L-20.0,239.6 L1.3,291.7 Z M-34.6,262.9 L-20.0,209.7 L-5.4,262.9 Z M94.2,328.4653668255772 h6 v-62.1 h-6 Z M67.9,242.9 a29.3,29.3 0 1,0 58.7,0 a29.3,29.3 0 1,0 -58.7,0 Z M56.7,256.7 a21.0,21.0 0 1,0 41.9,0 a21.0,21.0 0 1,0 -41.9,0 Z M95.8,259.4 a21.0,21.0 0 1,0 41.9,0 a21.0,21.0 0 1,0 -41.9,0 Z M180.5,328.5 L209.7,274.0 L238.8,328.5 Z M187.5,297.7 L209.7,241.9 L231.8,297.7 Z M194.5,266.8 L209.7,209.9 L224.8,266.8 Z M319.8,332.8 L347.1,285.1 L374.4,332.8 Z M326.4,305.8 L347.1,257.1 L367.9,305.8 Z M332.9,278.9 L347.1,229.2 L361.3,278.9 Z M410.4,343.2 L430.0,304.4 L449.6,343.2 Z M415.1,321.2 L430.0,281.6 L444.9,321.2 Z M419.8,299.3 L430.0,258.9 L440.2,299.3 Z M504.5,352.4 L530.2,298.8 L555.8,352.4 Z M510.6,322.1 L530.2,267.3 L549.7,322.1 Z M516.8,291.8 L530.2,235.8 L543.5,291.8 Z M617.6,348.9 L646.3,301.3 L675.0,348.9 Z M624.5,322.0 L646.3,273.3 L668.1,322.0 Z M631.3,295.1 L646.3,245.4 L661.2,295.1 Z M774.8,343.72326731962124 h6 v-42.9 h-6 Z M757.0,284.6 a20.8,20.8 0 1,0 41.7,0 a20.8,20.8 0 1,0 -41.7,0 Z M749.0,294.1 a14.9,14.9 0 1,0 29.8,0 a14.9,14.9 0 1,0 -29.8,0 Z M776.8,296.0 a14.9,14.9 0 1,0 29.8,0 a14.9,14.9 0 1,0 -29.8,0 Z M849.3,345.2350333818266 h6 v-58.2 h-6 Z M821.0,265.1 a31.3,31.3 0 1,0 62.6,0 a31.3,31.3 0 1,0 -62.6,0 Z M809.1,278.0 a22.4,22.4 0 1,0 44.7,0 a22.4,22.4 0 1,0 -44.7,0 Z M850.8,280.6 a22.4,22.4 0 1,0 44.7,0 a22.4,22.4 0 1,0 -44.7,0 Z M903.2,344.5 L934.0,284.9 L964.8,344.5 Z M910.6,310.8 L934.0,250.0 L957.4,310.8 Z M918.0,277.2 L934.0,215.0 L950.0,277.2 Z M1019.7,332.1 L1050.1,268.8 L1080.6,332.1 Z M1027.0,296.3 L1050.1,231.7 L1073.3,296.3 Z M1034.3,260.6 L1050.1,194.5 L1066.0,260.6 Z M1182.8,320.13928177563497 h6 v-45.3 h-6 Z M1167.8,257.7 a17.9,17.9 0 1,0 35.9,0 a17.9,17.9 0 1,0 -35.9,0 Z M1161.0,267.7 a12.8,12.8 0 1,0 25.6,0 a12.8,12.8 0 1,0 -25.6,0 Z M1184.9,269.8 a12.8,12.8 0 1,0 25.6,0 a12.8,12.8 0 1,0 -25.6,0 Z M1320.1,325.91278338860036 h6 v-49.4 h-6 Z M1299.8,257.8 a23.2,23.2 0 1,0 46.5,0 a23.2,23.2 0 1,0 -46.5,0 Z M1291.0,268.8 a16.6,16.6 0 1,0 33.2,0 a16.6,16.6 0 1,0 -33.2,0 Z M1322.0,271.0 a16.6,16.6 0 1,0 33.2,0 a16.6,16.6 0 1,0 -33.2,0 Z M1405.3,326.9 L1433.2,267.6 L1461.2,326.9 Z M1412.0,293.4 L1433.2,232.9 L1454.5,293.4 Z M1418.7,259.9 L1433.2,198.1 L1447.8,259.9 Z M1479.3,324.9 L1506.8,276.3 L1534.4,324.9 Z M1485.9,297.4 L1506.8,247.8 L1527.8,297.4 Z M1492.5,270.0 L1506.8,219.3 L1521.2,270.0 Z M1608.1,329.10013322236756 h6 v-48.3 h-6 Z M1589.6,262.6 a21.5,21.5 0 1,0 42.9,0 a21.5,21.5 0 1,0 -42.9,0 Z M1581.4,273.3 a15.3,15.3 0 1,0 30.7,0 a15.3,15.3 0 1,0 -30.7,0 Z M1610.1,275.5 a15.3,15.3 0 1,0 30.7,0 a15.3,15.3 0 1,0 -30.7,0 Z"/></svg>
+  <svg class="couche couche-3" data-profondeur="1.2" viewBox="0 0 1600 420" preserveAspectRatio="xMaxYMax slice">
+    <path class="couche-sol" d="M0,820 L0,388 C200,370 380,398 620,384 C860,370 1080,396 1300,380 C1440,370 1520,378 1600,372 L1600,820 Z"/>
+    <path class="decoupe" d="M0,388 C200,370 380,398 620,384 C860,370 1080,396 1300,380 C1440,370 1520,378 1600,372"/>
+
+  </svg>
   </div>
 </section>
 
-<section class="section gestes">
+<section class="allumees">
   <div class="enveloppe">
-    <div class="section-tete">
-      <p class="surtitre">De la planche à l’objet</p>
-      <h2 data-editable-zone="gestes_titre">Tout est fait ici, à la main.</h2>
+    <div class="allumees-tete">
+      <p class="surtitre">À la tombée du jour</p>
+      <h2>Le bois découpé laisse passer la lumière.</h2>
     </div>
-    <ol class="gestes-liste">
-      <li class="reveler"><span class="geste-num">01</span><h3>Découpe et gravure</h3><p data-editable-zone="geste_1">Le dessin est découpé et gravé au laser dans le bois : c’est là que naissent les silhouettes, les feuillages et les motifs.</p></li>
-      <li class="reveler"><span class="geste-num">02</span><h3>Assemblage en couches</h3><p data-editable-zone="geste_2">Les pièces se superposent, parfois jusqu’à sept couches, pour donner le relief et l’effet 3D.</p></li>
-      <li class="reveler"><span class="geste-num">03</span><h3>Peinture et finitions</h3><p data-editable-zone="geste_3">Peinture à la main, vernis, lumière : chaque pièce sort légèrement différente de la précédente.</p></li>
-    </ol>
+    <ul class="allumees-liste">
+      <li class="reveler"><a href="creations/lanternes-et-veilleuses/lanterne-oiseaux-sur-leurs-branches/">
+            <span class="allumee-photo"><img class="" src="photos/creations/lanterne-oiseaux-sur-leurs-branches-2-600.webp" alt="Lanterne oiseaux sur leurs branches" width="600" height="800" loading="lazy" decoding="async"></span>
+            <span class="allumee-nom">Lanterne oiseaux sur leurs branches</span><span class="allumee-prix">45,90 €</span>
+          </a></li><li class="reveler"><a href="creations/lanternes-et-veilleuses/lampe-arbre-de-vie/">
+            <span class="allumee-photo"><img class="" src="photos/creations/lampe-arbre-de-vie-2-600.webp" alt="Lampe arbre de vie" width="600" height="800" loading="lazy" decoding="async"></span>
+            <span class="allumee-nom">Lampe arbre de vie</span><span class="allumee-prix">59,90 €</span>
+          </a></li><li class="reveler"><a href="creations/lanternes-et-veilleuses/veilleuse-colibri/">
+            <span class="allumee-photo"><img class="" src="photos/creations/veilleuse-colibri-2-600.webp" alt="Veilleuse colibri" width="600" height="800" loading="lazy" decoding="async"></span>
+            <span class="allumee-nom">Veilleuse colibri</span><span class="allumee-prix">39,90 €</span>
+          </a></li><li class="reveler"><a href="creations/lanternes-et-veilleuses/lanterne-maman-et-sa-fille/">
+            <span class="allumee-photo"><img class="" src="photos/creations/lanterne-maman-et-sa-fille-4-600.webp" alt="Lanterne maman et sa fille" width="600" height="800" loading="lazy" decoding="async"></span>
+            <span class="allumee-nom">Lanterne maman et sa fille</span><span class="allumee-prix">45,90 €</span>
+          </a></li>
+    </ul>
   </div>
 </section>
 
@@ -116,6 +143,20 @@
         <span class="univers-nom">Objets personnalisés</span><span class="univers-nb">3 créations</span>
       </a></li>
     </ul>
+  </div>
+</section>
+
+<section class="section gestes">
+  <div class="enveloppe">
+    <div class="section-tete">
+      <p class="surtitre">De la planche à l’objet</p>
+      <h2 data-editable-zone="gestes_titre">Tout est fait ici, à la main.</h2>
+    </div>
+    <ol class="gestes-liste">
+      <li class="reveler"><span class="geste-num">01</span><h3>Découpe et gravure</h3><p data-editable-zone="geste_1">Le dessin est découpé et gravé au laser dans le bois : c’est là que naissent les silhouettes, les feuillages et les motifs.</p></li>
+      <li class="reveler"><span class="geste-num">02</span><h3>Assemblage en couches</h3><p data-editable-zone="geste_2">Les pièces se superposent, parfois jusqu’à sept couches, pour donner le relief et l’effet 3D.</p></li>
+      <li class="reveler"><span class="geste-num">03</span><h3>Peinture et finitions</h3><p data-editable-zone="geste_3">Peinture à la main, vernis, lumière : chaque pièce sort légèrement différente de la précédente.</p></li>
+    </ol>
   </div>
 </section>
 
@@ -231,7 +272,7 @@
     ga4Id: ''
   };
 </script>
-<script src="assets/site.js?v=1" defer></script>
+<script src="assets/site.js?v=3" defer></script>
 <script src="mesure.js" defer></script>
 </body>
 </html>

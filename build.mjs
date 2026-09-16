@@ -153,7 +153,7 @@ function page({ chemin, titre, description, corps, jsonld = [], actif = '', somb
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${r}assets/style.css?v=1">
+<link rel="stylesheet" href="${r}assets/style.css?v=3">
 ${jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join('\n')}
 </head>
 <body${sombre ? ' class="entete-sombre"' : ''}>
@@ -200,7 +200,7 @@ ${corps(r)}
     ga4Id: ''
   };
 </script>
-<script src="${r}assets/site.js?v=1" defer></script>
+<script src="${r}assets/site.js?v=3" defer></script>
 <script src="${r}mesure.js" defer></script>
 </body>
 </html>
@@ -242,6 +242,72 @@ const carte = (r, c, niveauTitre = 'h3') => {
   </article>`;
 };
 
+/* ---------- les couches de bois decoupe de la scene d'accueil ----------
+   Trois silhouettes en SVG, generees ici (graine fixe : le dessin est
+   identique a chaque construction). Du fond vers l'avant : une foret
+   lointaine, une foret plus proche, puis la branche aux deux oiseaux,
+   comme sur ses lanternes. Le trait pointille dore suit la decoupe. */
+function hasard(graine) {
+  return () => { graine |= 0; graine = (graine + 0x6D2B79F5) | 0; let t = Math.imul(graine ^ (graine >>> 15), 1 | graine);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+}
+const L = 1600, H = 420;
+
+function foret(graine, { sol, hMin, hMax, pasMin, pasMax, rond = 0.25 }) {
+  const r = hasard(graine);
+  const solY = (x) => sol + Math.sin(x / 210 + graine) * 14 + Math.sin(x / 67) * 5;
+  let d = `M0,${H} L0,${solY(0).toFixed(1)} `;
+  for (let x = 0; x <= L; x += 40) d += `L${x},${solY(x).toFixed(1)} `;
+  d += `L${L},${H} Z `;
+  const formes = [];
+  for (let x = -20; x < L + 40; x += pasMin + r() * (pasMax - pasMin)) {
+    const h = hMin + r() * (hMax - hMin), base = solY(x) + 6, w = h * (0.42 + r() * 0.16);
+    if (r() < rond) {
+      // feuillu : un tronc et trois ronds de feuillage
+      formes.push(`M${(x - 3).toFixed(1)},${base} h6 v${(-h * 0.45).toFixed(1)} h-6 Z`);
+      const cy = base - h * 0.62;
+      [[0, 0, w * 0.42], [-w * 0.28, h * 0.1, w * 0.3], [w * 0.28, h * 0.12, w * 0.3]].forEach(([dx, dy, rr]) => {
+        const cx = x + dx, y = cy + dy;
+        formes.push(`M${(cx - rr).toFixed(1)},${y.toFixed(1)} a${rr.toFixed(1)},${rr.toFixed(1)} 0 1,0 ${(2 * rr).toFixed(1)},0 a${rr.toFixed(1)},${rr.toFixed(1)} 0 1,0 ${(-2 * rr).toFixed(1)},0 Z`);
+      });
+    } else {
+      // sapin : trois etages
+      for (let k = 0; k < 3; k++) {
+        const yb = base - h * k * 0.26, yt = base - h * (0.46 + k * 0.27), hw = (w / 2) * (1 - k * 0.24);
+        formes.push(`M${(x - hw).toFixed(1)},${yb.toFixed(1)} L${x.toFixed(1)},${Math.max(yt, base - h).toFixed(1)} L${(x + hw).toFixed(1)},${yb.toFixed(1)} Z`);
+      }
+    }
+  }
+  return d + formes.join(' ');
+}
+
+// Un passereau pose, de profil ; l'oeil est evide, comme une decoupe laser.
+const oiseau = (x, y, s, sens = 1) => `<g transform="translate(${x} ${y}) scale(${s * sens} ${s})">
+  <path fill-rule="evenodd" d="M52,-31 L66,-27 L52,-23 C49,-15 43,-9 35,-5 C27,-1 15,1 3,-1 L-34,9 L-29,2 L-42,4 L-9,-8 C-15,-15 -13,-25 -3,-31 C9,-39 25,-40 35,-37 C42,-42 50,-38 52,-31 Z M44,-32 a3.2,3.2 0 1,0 6.4,0 a3.2,3.2 0 1,0 -6.4,0 Z"/>
+  <path d="M8,-3 L6,9 L9,9 L11,-3 Z M17,-5 L17,8 L20,8 L20,-5 Z"/></g>`;
+
+function branche() {
+  const r = hasard(7);
+  let feuilles = '';
+  for (let i = 0; i < 16; i++) {
+    const t = i / 15, x = L - t * 520, y = 128 + t * 88 + (r() - 0.5) * 18, a = (r() - 0.5) * 120 + (i % 2 ? 35 : -35), s = 0.7 + r() * 0.6;
+    feuilles += `<path transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a.toFixed(0)}) scale(${s.toFixed(2)})" d="M0,0 C12,-10 34,-10 46,0 C34,10 12,10 0,0 Z"/>`;
+  }
+  return `<path d="M${L},112 C1480,126 1330,160 1170,204 C1130,214 1098,218 1068,214 C1096,202 1146,188 1186,176 C1336,140 1478,112 ${L},100 Z"/>
+    <path d="M1390,150 C1370,120 1360,96 1368,70 C1376,98 1384,122 1402,146 Z"/>
+    <path d="M1250,180 C1240,206 1224,226 1200,238 C1218,222 1232,204 1238,178 Z"/>
+    ${feuilles}${oiseau(1300, 170, 1.15)}${oiseau(1418, 140, 0.95, -1)}`;
+}
+
+const COUCHES = `
+  <svg class="couche couche-1" data-profondeur="0.35" viewBox="0 0 ${L} ${H}" preserveAspectRatio="xMidYMax slice"><path d="${foret(3, { sol: 270, hMin: 90, hMax: 170, pasMin: 34, pasMax: 70, rond: 0.2 })}"/></svg>
+  <svg class="couche couche-2" data-profondeur="0.7" viewBox="0 0 ${L} ${H}" preserveAspectRatio="xMidYMax slice"><path d="${foret(11, { sol: 330, hMin: 70, hMax: 150, pasMin: 70, pasMax: 150, rond: 0.35 })}"/></svg>
+  <svg class="couche couche-3" data-profondeur="1.2" viewBox="0 0 ${L} ${H}" preserveAspectRatio="xMaxYMax slice">
+    <path class="couche-sol" d="M0,${H + 400} L0,388 C200,370 380,398 620,384 C860,370 1080,396 1300,380 C1440,370 1520,378 ${L},372 L${L},${H + 400} Z"/>
+    <path class="decoupe" d="M0,388 C200,370 380,398 620,384 C860,370 1080,396 1300,380 C1440,370 1520,378 ${L},372"/>
+
+  </svg>`;
+
 /* ---------- les pages ---------- */
 
 const pages = [];
@@ -258,37 +324,52 @@ pages.push({
   sombre: true,
   jsonld: [{ '@context': 'https://schema.org', ...ORGANISATION }],
   corps: (r) => `
-<section class="scene">
-  <div class="enveloppe scene-grille">
-    <div class="scene-texte">
-      <p class="surtitre" data-editable-zone="accueil_surtitre">Bois découpé et gravé au laser · Cambrésis</p>
-      <h1 class="scene-titre" data-editable-zone="accueil_titre">Des objets qui <em>s’allument</em> à la tombée du jour.</h1>
-      <p class="scene-chapo" data-editable-zone="accueil_chapo">Lanternes, horloges et cadeaux personnalisés. Je dessine, je découpe, j’assemble et je peins chaque pièce à la main, couche de bois après couche de bois.</p>
-      <p class="scene-actions">
-        <a class="bouton bouton-lueur" href="${r}creations/">Voir les créations</a>
-        <a class="bouton bouton-contour" href="${r}personnalisation/">Personnaliser un objet</a>
-      </p>
-      <p class="scene-signature" data-editable-zone="accueil_signature">Yoann, maquettiste</p>
-    </div>
-    <div class="triptyque" aria-hidden="true">
-      <figure class="volet volet-1">${img(r, 'lanterne-oiseaux-sur-leurs-branches-2', '', { eager: true, l: 600, h: 800 })}</figure>
-      <figure class="volet volet-2">${img(r, 'lampe-arbre-de-vie-2', '', { eager: true, l: 600, h: 800 })}</figure>
-      <figure class="volet volet-3">${img(r, 'veilleuse-colibri-2', '', { eager: true, l: 600, h: 800 })}</figure>
-    </div>
+<section class="scene" data-scene>
+  <!-- PHOTO D'ILLUSTRATION (Unsplash, o54RjF-C7xo) : a remplacer par une
+       photo de l'atelier de Yoann. -->
+  <picture class="scene-photo" data-profondeur="0.15">
+    <source media="(max-width: 700px)" srcset="${r}photos/atelier-mobile.webp">
+    <source media="(max-width: 1300px)" srcset="${r}photos/atelier-1200.webp">
+    <img src="${r}photos/atelier-2200.webp" alt="" width="2200" height="1514" fetchpriority="high" data-editable-zone="accueil_photo">
+  </picture>
+  <div class="scene-voile"></div>
+  <div class="scene-lueur" aria-hidden="true"></div>
+  <div class="enveloppe scene-contenu">
+    <p class="surtitre scene-apparait" data-editable-zone="accueil_surtitre">Découpe et gravure laser · Cambrésis</p>
+    <h1 class="scene-titre">
+      <span class="scene-ligne"><span>La Fabrique</span></span>
+      <span class="scene-ligne"><em>du Maquettiste</em></span>
+    </h1>
+    <p class="scene-chapo scene-apparait" data-editable-zone="accueil_chapo">Lanternes, horloges et cadeaux personnalisés, découpés, assemblés et peints à la main, <span>couche de bois après couche de bois.</span></p>
+    <p class="scene-actions scene-apparait">
+      <a class="bouton bouton-lueur" href="${r}creations/">Voir les ${creations.length} créations</a>
+      <a class="bouton bouton-contour" href="${r}personnalisation/">Personnaliser un objet</a>
+    </p>
+  </div>
+  <!-- Les couches de bois decoupees : le metier de Yoann, en entree de site.
+       Elles montent l'une apres l'autre au chargement, puis bougent a des
+       vitesses differentes avec la souris et le defilement. -->
+  <div class="couches" aria-hidden="true">
+    ${COUCHES}
   </div>
 </section>
 
-<section class="section gestes">
+<section class="allumees">
   <div class="enveloppe">
-    <div class="section-tete">
-      <p class="surtitre">De la planche à l’objet</p>
-      <h2 data-editable-zone="gestes_titre">Tout est fait ici, à la main.</h2>
+    <div class="allumees-tete">
+      <p class="surtitre">À la tombée du jour</p>
+      <h2>Le bois découpé laisse passer la lumière.</h2>
     </div>
-    <ol class="gestes-liste">
-      <li class="reveler"><span class="geste-num">01</span><h3>Découpe et gravure</h3><p data-editable-zone="geste_1">Le dessin est découpé et gravé au laser dans le bois : c’est là que naissent les silhouettes, les feuillages et les motifs.</p></li>
-      <li class="reveler"><span class="geste-num">02</span><h3>Assemblage en couches</h3><p data-editable-zone="geste_2">Les pièces se superposent, parfois jusqu’à sept couches, pour donner le relief et l’effet 3D.</p></li>
-      <li class="reveler"><span class="geste-num">03</span><h3>Peinture et finitions</h3><p data-editable-zone="geste_3">Peinture à la main, vernis, lumière : chaque pièce sort légèrement différente de la précédente.</p></li>
-    </ol>
+    <ul class="allumees-liste">
+      ${['lanterne-oiseaux-sur-leurs-branches', 'lampe-arbre-de-vie', 'veilleuse-colibri', 'lanterne-maman-et-sa-fille']
+        .map((s, i) => creations.find((c) => c.slug === s)).filter(Boolean).map((c, i) => {
+          const photo = { 'lanterne-oiseaux-sur-leurs-branches': 2, 'lampe-arbre-de-vie': 2, 'veilleuse-colibri': 2, 'lanterne-maman-et-sa-fille': 4 }[c.slug];
+          return `<li class="reveler"><a href="${r}${urlCreation(c)}">
+            <span class="allumee-photo">${img(r, `${c.slug}-${photo}`, c.nom, { l: 600, h: 800 })}</span>
+            <span class="allumee-nom">${esc(c.nom)}</span><span class="allumee-prix">${prixAffiche(c)}</span>
+          </a></li>`;
+        }).join('')}
+    </ul>
   </div>
 </section>
 
@@ -304,6 +385,20 @@ pages.push({
         <span class="univers-nom">${cat.nom}</span><span class="univers-nb">${cat.creations.length} création${cat.creations.length > 1 ? 's' : ''}</span>
       </a></li>`).join('')}
     </ul>
+  </div>
+</section>
+
+<section class="section gestes">
+  <div class="enveloppe">
+    <div class="section-tete">
+      <p class="surtitre">De la planche à l’objet</p>
+      <h2 data-editable-zone="gestes_titre">Tout est fait ici, à la main.</h2>
+    </div>
+    <ol class="gestes-liste">
+      <li class="reveler"><span class="geste-num">01</span><h3>Découpe et gravure</h3><p data-editable-zone="geste_1">Le dessin est découpé et gravé au laser dans le bois : c’est là que naissent les silhouettes, les feuillages et les motifs.</p></li>
+      <li class="reveler"><span class="geste-num">02</span><h3>Assemblage en couches</h3><p data-editable-zone="geste_2">Les pièces se superposent, parfois jusqu’à sept couches, pour donner le relief et l’effet 3D.</p></li>
+      <li class="reveler"><span class="geste-num">03</span><h3>Peinture et finitions</h3><p data-editable-zone="geste_3">Peinture à la main, vernis, lumière : chaque pièce sort légèrement différente de la précédente.</p></li>
+    </ol>
   </div>
 </section>
 
