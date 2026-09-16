@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shigyn.github.io/fabrique-maquettiste/sitemap.xml
+Sitemap: https://shigyn.github.io/lafabrique/sitemap.xml

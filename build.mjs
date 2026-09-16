@@ -11,13 +11,13 @@
 //  site « naturel, sans IA »), ses dimensions et ses photos.
 //
 //  Les liens sont RELATIFS : le meme site fonctionne sous
-//  shigyn.github.io/fabrique-maquettiste/ et, plus tard, sur son domaine.
+//  shigyn.github.io/lafabrique/ et, plus tard, sur son domaine.
 // ===================================================================
 import fs from 'node:fs';
 import path from 'node:path';
 
 const ICI = path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Z]:)/, '$1');
-const URL_SITE = 'https://shigyn.github.io/fabrique-maquettiste/';
+const URL_SITE = 'https://shigyn.github.io/lafabrique/';
 const BOUTIQUE = 'https://la-fabrique-du-maquettiste.sumupstore.com';
 const INSTAGRAM = 'https://www.instagram.com/la_fabrique_du_maquettiste/';
 const EMAIL = 'lemaquettiste.boutique@gmail.com';
