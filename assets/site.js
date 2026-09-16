@@ -23,33 +23,57 @@
     requestAnimationFrame(function () { requestAnimationFrame(function () { scene.classList.add('pret'); }); });
 
     if (!calme) {
-      var couches = [].slice.call(scene.querySelectorAll('.couche'));
+      /* Une seule boucle d'animation. Chaque element a une CIBLE (souris +
+         defilement) et une position ACTUELLE qui s'en rapproche un peu a
+         chaque image : le mouvement glisse au lieu de sauter, et la boucle
+         s'arrete d'elle-meme quand tout est immobile. */
+      var elements = [].slice.call(scene.querySelectorAll('.couche')).map(function (el) {
+        return { el: el, p: parseFloat(el.getAttribute('data-profondeur')) || 0, x: 0, y: 0 };
+      });
       var photo = scene.querySelector('.scene-photo');
-      var sx = 0, sy = 0, prevu = false;
-      setTimeout(function () { scene.classList.add('bouge'); }, 2200);
+      var titre = scene.querySelector('.scene-contenu');
+      var fond = { x: 0, y: 0 }, texte = { x: 0, y: 0 };
+      var sx = 0, sy = 0, actif = false, enRoute = false;
 
-      var peindre = function () {
-        prevu = false;
+      var cible = function (p) {
         var defil = Math.min(window.scrollY, scene.offsetHeight);
-        couches.forEach(function (c) {
-          var p = parseFloat(c.getAttribute('data-profondeur')) || 0;
-          c.style.setProperty('--dx', (-sx * p * 26).toFixed(1) + 'px');
-          c.style.setProperty('--dy', (defil * p * 0.12 + sy * p * 8).toFixed(1) + 'px');
-        });
-        if (photo) photo.style.transform = 'translate3d(' + (-sx * 10).toFixed(1) + 'px,' + (defil * 0.3).toFixed(1) + 'px,0) scale(1.04)';
+        return { x: -sx * p * 34, y: defil * p * 0.12 - sy * p * 10 };
       };
-      var demander = function () { if (!prevu) { prevu = true; requestAnimationFrame(peindre); } };
+      var approcher = function (o, c, k) {
+        var dx = c.x - o.x, dy = c.y - o.y;
+        o.x += dx * k; o.y += dy * k;
+        return Math.abs(dx) + Math.abs(dy) > 0.05;
+      };
+      var image = function () {
+        var bouge = false;
+        elements.forEach(function (e) {
+          if (approcher(e, cible(e.p), 0.075)) bouge = true;
+          e.el.style.transform = 'translate3d(' + e.x.toFixed(2) + 'px,' + e.y.toFixed(2) + 'px,0)';
+        });
+        var defil = Math.min(window.scrollY, scene.offsetHeight);
+        if (approcher(fond, { x: -sx * 14, y: defil * 0.28 - sy * 6 }, 0.06)) bouge = true;
+        if (photo) photo.style.transform = 'translate3d(' + fond.x.toFixed(2) + 'px,' + fond.y.toFixed(2) + 'px,0) scale(1.06)';
+        // le texte recule a peine, dans l'autre sens : l'oeil lit la profondeur
+        if (approcher(texte, { x: sx * 8, y: -defil * 0.08 }, 0.07)) bouge = true;
+        if (titre) titre.style.transform = 'translate3d(' + texte.x.toFixed(2) + 'px,' + texte.y.toFixed(2) + 'px,0)';
+        enRoute = bouge && !document.hidden;
+        if (enRoute) requestAnimationFrame(image);
+      };
+      var relancer = function () { if (actif && !enRoute) { enRoute = true; requestAnimationFrame(image); } };
+
+      // la boucle ne prend la main qu'une fois les couches montees
+      setTimeout(function () { scene.classList.add('bouge'); actif = true; relancer(); }, 2100);
 
       if (window.matchMedia('(hover: hover)').matches) {
         scene.addEventListener('pointermove', function (e) {
           var r = scene.getBoundingClientRect();
           sx = (e.clientX - r.left) / r.width - 0.5;
           sy = (e.clientY - r.top) / r.height - 0.5;
-          demander();
+          relancer();
         });
+        scene.addEventListener('pointerleave', function () { sx = 0; sy = 0; relancer(); });
       }
-      window.addEventListener('scroll', demander, { passive: true });
-      peindre();
+      window.addEventListener('scroll', relancer, { passive: true });
     }
   }
 

@@ -153,7 +153,7 @@ function page({ chemin, titre, description, corps, jsonld = [], actif = '', somb
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${r}assets/style.css?v=3">
+<link rel="stylesheet" href="${r}assets/style.css?v=4">
 ${jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join('\n')}
 </head>
 <body${sombre ? ' class="entete-sombre"' : ''}>
@@ -200,7 +200,7 @@ ${corps(r)}
     ga4Id: ''
   };
 </script>
-<script src="${r}assets/site.js?v=3" defer></script>
+<script src="${r}assets/site.js?v=4" defer></script>
 <script src="${r}mesure.js" defer></script>
 </body>
 </html>

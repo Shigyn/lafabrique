@@ -141,7 +141,7 @@ p { margin: 0 0 1em }
 }
 @keyframes respire { 0%, 100% { opacity: .75 } 45% { opacity: 1 } 60% { opacity: .85 } }
 
-.scene-contenu { position: relative; z-index: 2 }
+.scene-contenu { position: relative; z-index: 2; will-change: transform }
 .scene .surtitre { color: var(--lueur-vive); margin-bottom: 22px }
 .scene-titre { font-size: clamp(56px, 8.2vw, 128px); line-height: .9; letter-spacing: -.02em; margin-bottom: 26px }
 .scene-ligne { display: block; overflow: hidden; padding-bottom: .06em }
@@ -167,11 +167,11 @@ p { margin: 0 0 1em }
 .js .scene.pret .scene-ligne:nth-child(2) > * { transition-delay: .12s }
 .js .scene.pret .scene-apparait { opacity: 1; transform: none; transition-delay: .45s }
 .js .scene.pret .scene-actions { transition-delay: .6s }
-.js .scene.pret .couche { transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0) }
+.js .scene.pret .couche { transform: none }
 .js .scene.pret .couche-1 { transition-delay: .15s }
 .js .scene.pret .couche-2 { transition-delay: .35s }
 .js .scene.pret .couche-3 { transition-delay: .55s }
-.js .scene.bouge .couche { transition: transform .5s cubic-bezier(.2, .6, .3, 1) }
+.js .scene.bouge .couche { transition: none }
 
 @media (max-width: 700px) {
   .scene { align-items: flex-end; min-height: calc(100svh - 72px); padding-block: 40px 170px }
